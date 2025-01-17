@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Última Confissão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Reset básico de CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: #121212;
+            color: #E6E6E6;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.85);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            position: relative;
+            text-align: center;
+            width: 90%;
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #D9534F;
+            text-shadow: 0 0 8px rgba(217, 83, 79, 0.8), 0 0 20px rgba(217, 83, 79, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .intro {
+            font-size: 1.25rem;
+            color: #bbb;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .hidden-message {
+            display: none;
+            margin-top: 30px;
+            color: #32CD32;
+            font-size: 1.2rem;
+        }
+
+        .input-field {
+            padding: 15px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 80%;
+            background-color: #333;
+            border: 2px solid #444;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .submit-button {
+            padding: 12px 24px;
+            margin-top: 15px;
+            background-color: #C9302C;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #A8271D;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14px;
+            color: #777;
+            width: 100%;
+            text-align: center;
+        }
+
+        .error-message {
+            color: #FF5C5C;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        /* Efeito de fundo */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://cdn.pixabay.com/photo/2017/01/20/21/47/forest-1990225_960_720.jpg') no-repeat center center/cover;
+            filter: grayscale(100%) blur(3px);
+            z-index: -1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>A Última Confissão</h1>
+        <p class="intro">Você está prestes a conhecer a verdade. O que você faria se soubesse? A resposta sempre esteve diante de seus olhos, mas apenas aqueles corajosos o suficiente conseguem vê-la.</p>
+        
+        <p class="intro">Eu os observei. Cada movimento, cada escolha. E agora... é tarde demais para voltar. As palavras que você procura estão escondidas onde a luz não alcança.</p>
+        
+        <p class="intro">Mas há uma verdade que todos temem. O que aconteceu naquela noite, quando o silêncio foi interrompido? Não procure a resposta nas sombras, mas sim no que está no centro da sala.</p>
+        
+        <div class="puzzle">
+            <p class="hidden-message">Você encontrou a chave, agora a porta está aberta. A verdade foi revelada.</p>
+            <p class="error-message">Resposta incorreta. Algo está errado... você falhou. Tente novamente.</p>
+            <input type="text" class="input-field" placeholder="Digite a resposta..." />
+            <button class="submit-button">Enviar</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Data de atualização: <span id="current-date"></span></p>
+    </div>
+
+    <script>
+        // Reset de CSS para limpar as alterações padrão
+        document.getElementById("current-date").textContent = new Date().toLocaleDateString();
+
+        // Dica para a senha
+        const hiddenMessage = "a verdade está no centro da sala";
+
+        // Evento de clique no botão
+        document.querySelector('.submit-button').addEventListener('click', function() {
+            const userInput = document.querySelector('.input-field').value.trim().toLowerCase();
+
+            // Se o usuário acertar a resposta
+            if (userInput === "eu matei você") {
+                document.querySelector('.hidden-message').style.display = 'block'; // Exibe a mensagem secreta
+                document.querySelector('.error-message').style.display = 'none'; // Esconde a mensagem de erro
+            } else {
+                document.querySelector('.error-message').style.display = 'block'; // Exibe a mensagem de erro
+                document.querySelector('.hidden-message').style.display = 'none'; // Esconde a mensagem secreta
+            }
+        });
+    </script>
+</body>
+</html>
