@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escritório</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #121212;
+      color: #e0e0e0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .description {
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      justify-items: center;
+      margin-top: 20px;
+    }
+
+    .options button {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 15px 30px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      cursor: pointer;
+      width: 200px;
+    }
+
+    .options button:hover {
+      background-color: #555;
+    }
+
+    /* Mancha vermelha simulando sangue, movida para a direita */
+    .secret-icon {
+      position: absolute;
+      bottom: 20%;
+      left: 75%; /* Movida ainda mais para a direita */
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 0, 0, 0.7);
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0.8;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    }
+
+    .safe {
+      position: relative;
+      bottom: 10%;
+      width: 60px;
+      height: 60px;
+      background-color: #333;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .safe:hover {
+      background-color: #555;
+    }
+
+    .secret-document {
+      display: none;
+      font-size: 1.5em;
+      color: #fff;
+      background-color: #333;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 30px;
+      max-width: 500px;
+      word-wrap: break-word;
+      text-align: left;
+    }
+
+    .code-container {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .code-input {
+      padding: 10px;
+      font-size: 1.2em;
+      width: 200px;
+      margin-top: 10px;
+    }
+
+    .submit-button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 5px;
+    }
+
+    .submit-button:hover {
+      background-color: #555;
+    }
+
+    .safe-input-container {
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bem-vindo ao Escritório</h1>
+    <p class="description">Você está em um escritório misterioso. Algo não está certo aqui...</p>
+    <p id="clue-text">Clique nos pontos misteriosos para investigar.</p>
+    
+    <!-- Botões dispostos em 2x2 -->
+    <div class="options">
+      <button onclick="exploreDesk()">Explorar a mesa</button>
+      <button onclick="lookOutWindow()">Olhar pela janela</button>
+      <button onclick="checkFile()">Verificar arquivos</button>
+      <button onclick="openSafePrompt()">Abrir Cofre</button>
+    </div>
+
+    <div class="secret-document" id="secretDocument">
+      <p><strong>Documento Secreto Encontrado:</strong></p>
+      <p>Você encontrou um código criptografado: <strong>C4X9YH</strong></p>
+      <p>Agora você precisa usar esse código em um cofre para seguir para a próxima fase.</p>
+    </div>
+
+    <!-- Local para inserir o código do cofre -->
+    <div id="safe-input-container" class="safe-input-container">
+      <p>Insira a senha para abrir o cofre:</p>
+      <input type="text" id="safe-input" class="code-input" placeholder="Senha">
+      <button class="submit-button" onclick="openSafe()">Abrir Cofre</button>
+    </div>
+  </div>
+
+  <!-- Mancha vermelha simulando sangue movida mais para a direita -->
+  <div class="secret-icon" onclick="revealSecret()"></div>
+
+  <script>
+    function exploreDesk() {
+      document.querySelector('.description').textContent = "A mesa está desordenada, mas nada parece fora do lugar...";
+    }
+
+    function lookOutWindow() {
+      document.querySelector('.description').textContent = "Você olha pela janela e vê um corredor escuro. Algo estranho parece se mover lá.";
+    }
+
+    function checkFile() {
+      document.querySelector('.description').textContent = "Você abre um arquivo e lê uma mensagem enigmática: 'O luke da a bundinhakkkj'";
+    }
+
+    function revealSecret() {
+      document.getElementById('secretDocument').style.display = 'block';  // Revela o documento secreto
+      document.getElementById('clue-text').textContent = "Você encontrou um código criptografado em uma mancha de sangue!";
+    }
+
+    function openSafePrompt() {
+      document.getElementById('clue-text').textContent = "Você encontrou um cofre. Insira a senha correta para abrir.";
+      document.getElementById('safe-input-container').style.display = 'block';  // Mostra o campo para inserir a senha
+    }
+
+    function openSafe() {
+      var safeInput = document.getElementById('safe-input').value;
+      if (safeInput === 'C4X9YH') {
+        alert("Cofre aberto! Avançando para a próxima fase...");
+        // Redireciona para o link do YouTube
+        window.location.href = "https://youtu.be/Edxt_9DGXZQ?si=wmSYlPbTv_kzdGQL";
+      } else {
+        alert("Senha incorreta. O cofre não se abre.");
+      }
+    }
+  </script>
+</body>
+</html>

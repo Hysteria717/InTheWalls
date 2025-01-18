@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Espelho Negro</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .reflection {
+            width: 90%;
+            height: 70%;
+            background: linear-gradient(135deg, #111, #333);
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
+            border: 2px solid #444;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reflection::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.8));
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .message {
+            font-size: 1.2rem;
+            opacity: 0;
+            position: absolute;
+            color: #aaa;
+            text-align: center;
+            pointer-events: none;
+            transition: opacity 1s;
+        }
+
+        .hint {
+            font-size: 0.9rem;
+            color: #666;
+            position: absolute;
+            bottom: 5%;
+            text-align: center;
+        }
+
+        .active .message {
+            opacity: 1;
+        }
+
+        .next {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .next:hover {
+            background: #444;
+        }
+
+        .active + .next {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="reflection" id="reflection">
+            <p class="message" id="message">"A verdade está no reflexo... mas só se você tocá-lo."</p>
+        </div>
+        <button class="next" id="next" onclick="goToNextStage()">Próximo</button>
+        <p class="hint">Dica: Tente tocar e segurar na tela.</p>
+    </div>
+
+    <script>
+        const reflection = document.getElementById('reflection');
+        const message = document.getElementById('message');
+        const nextButton = document.getElementById('next');
+
+        // Adiciona evento para toque longo e clique longo
+        let interactionTimer;
+
+        function startInteraction() {
+            interactionTimer = setTimeout(() => {
+                reflection.classList.add('active');
+            }, 2000); // Segurar por 2 segundos
+        }
+
+        function endInteraction() {
+            clearTimeout(interactionTimer);
+        }
+
+        reflection.addEventListener('touchstart', startInteraction);
+        reflection.addEventListener('touchend', endInteraction);
+        reflection.addEventListener('mousedown', startInteraction);
+        reflection.addEventListener('mouseup', endInteraction);
+        reflection.addEventListener('mouseleave', endInteraction);
+
+        function goToNextStage() {
+            window.location.href = 'CorredorInfinito.html'; // Substitua pelo caminho da próxima fase
+        }
+    </script>
+</body>
+</html>
